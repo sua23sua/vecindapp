@@ -3,175 +3,162 @@
 import { useState } from "react";
 import { Check } from "lucide-react";
 
-const plans = [
-  {
-    name: "Básico",
-    price: "4,99",
-    description: "Hasta 25 vecinos",
-    features: [
-      "Envíos ilimitados",
-      "Mensaje personalizado",
-      "Adjunto PDF",
-      "Trazabilidad completa",
-      "Informe de evidencia",
-      "Soporte por email",
-    ],
-    highlighted: false,
-    cta: "Empezar gratis",
-  },
-  {
-    name: "Estándar",
-    price: "7,99",
-    description: "26-60 vecinos",
-    features: [
-      "Todo lo del plan Básico",
-      "Recordatorios automáticos",
-      "Programación de envíos",
-      "Soporte por chat",
-    ],
-    highlighted: true,
-    badge: "Más popular",
-    cta: "Empezar gratis",
-  },
-  {
-    name: "Grande",
-    price: "11,99",
-    description: "61-150 vecinos",
-    features: [
-      "Todo lo del plan Estándar",
-      "Multi-admin (varios usuarios)",
-      "Soporte prioritario",
-    ],
-    highlighted: false,
-    cta: "Empezar gratis",
-  },
-  {
-    name: "Corporativo",
-    price: "A medida",
-    description: "+150 vecinos o gestoras grandes",
-    features: [
-      "SLA garantizado",
-      "Onboarding personalizado",
-      "Soporte telefónico",
-    ],
-    highlighted: false,
-    cta: "Contactar",
-  },
+const baseFeatures = [
+  "Envíos ilimitados",
+  "Personalización de mensajes",
+  "PDF adjunto",
+  "Trazabilidad 5 estados",
+  "Confirmación automática",
+  "Informe de evidencia",
+  "LOPD automática",
+  "Importación Excel",
+  "Soporte email",
 ];
 
+const plusExtra = [
+  "Recordatorios automáticos",
+  "Programación de envíos",
+  "Historial avanzado con métricas",
+  "Exportación CSV",
+  "Multi-admin",
+  "Soporte chat prioritario",
+];
+
+const plans = [
+  { name: "Starter",      owners: "Hasta 150 propietarios", base: "19,99", plus: "29,99" },
+  { name: "Profesional",  owners: "Hasta 400 propietarios", base: "49,99", plus: "69,99", popular: true },
+  { name: "Avanzado",     owners: "Hasta 800 propietarios", base: "89,99", plus: "119,99" },
+  { name: "Gestoría",     owners: "Hasta 1.800 propietarios", base: "159,99", plus: "209,99" },
+  { name: "Corporativo",  owners: "+1.800 propietarios",    base: "A medida", plus: "A medida" },
+];
+
+const calcPlan = (owners: number) => {
+  if (owners <= 150)  return { name: "Starter",     base: 19.99, plus: 29.99 };
+  if (owners <= 400)  return { name: "Profesional",  base: 49.99, plus: 69.99 };
+  if (owners <= 800)  return { name: "Avanzado",     base: 89.99, plus: 119.99 };
+  if (owners <= 1800) return { name: "Gestoría",     base: 159.99, plus: 209.99 };
+  return null;
+};
+
 export default function Pricing() {
-  const [communities, setCommunities] = useState(10);
+  const [version, setVersion] = useState<"base" | "plus">("base");
+  const [owners, setOwners] = useState(150);
 
-  const estimatedPlan =
-    communities <= 10
-      ? { name: "Básico", price: 4.99 }
-      : communities <= 30
-      ? { name: "Estándar", price: 7.99 }
-      : { name: "Grande", price: 11.99 };
-
-  const total = (communities * estimatedPlan.price).toFixed(2);
+  const estimated = calcPlan(owners);
 
   return (
     <section id="precios" className="py-20 bg-[#F8FAFC]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-[#1A3C6E] tracking-tight">
-            Un precio fijo por comunidad. Sin sorpresas.
+            Un precio por propietarios gestionados. Sin sorpresas.
           </h2>
           <p className="mt-4 text-lg text-[#475569] max-w-2xl mx-auto">
-            Repercútelo directamente a cada comunidad como gasto de administración.
-            A 30 vecinos, son 0,23 EUR por propietario al mes.
+            El plan se ajusta al total de propietarios que gestionas, no al número de comunidades.
           </p>
         </div>
 
-        {/* Pricing cards */}
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`rounded-2xl p-6 flex flex-col relative ${
-                plan.highlighted
-                  ? "bg-[#1A56DB] text-white shadow-xl scale-105"
-                  : "bg-white border border-[#E2E8F0] shadow-sm"
+        {/* Base / Plus toggle */}
+        <div className="mt-10 flex justify-center">
+          <div className="inline-flex bg-white border border-[#E2E8F0] rounded-xl p-1 gap-1">
+            <button
+              onClick={() => setVersion("base")}
+              className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${
+                version === "base"
+                  ? "bg-[#1A56DB] text-white shadow-sm"
+                  : "text-[#475569] hover:text-[#1A3C6E]"
               }`}
             >
-              {plan.badge && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#25D366] text-white text-xs font-bold px-3 py-1 rounded-full">
-                  {plan.badge}
-                </span>
-              )}
-              <div>
-                <h3
-                  className={`text-lg font-bold ${
-                    plan.highlighted ? "text-white" : "text-[#1A3C6E]"
-                  }`}
-                >
-                  {plan.name}
-                </h3>
-                <div className="mt-2 flex items-baseline gap-1">
-                  {plan.price !== "A medida" ? (
-                    <>
-                      <span
-                        className={`text-3xl font-bold ${
-                          plan.highlighted ? "text-white" : "text-[#1A3C6E]"
-                        }`}
-                      >
-                        {plan.price}
-                      </span>
-                      <span
-                        className={`text-sm ${
-                          plan.highlighted ? "text-white/70" : "text-[#475569]"
-                        }`}
-                      >
-                        EUR/mes/comunidad
-                      </span>
-                    </>
-                  ) : (
-                    <span
-                      className={`text-2xl font-bold ${
-                        plan.highlighted ? "text-white" : "text-[#1A3C6E]"
-                      }`}
-                    >
-                      {plan.price}
-                    </span>
-                  )}
-                </div>
-                <p
-                  className={`mt-1 text-sm ${
-                    plan.highlighted ? "text-white/70" : "text-[#475569]"
-                  }`}
-                >
-                  {plan.description}
-                </p>
+              Base
+            </button>
+            <button
+              onClick={() => setVersion("plus")}
+              className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${
+                version === "plus"
+                  ? "bg-[#1A56DB] text-white shadow-sm"
+                  : "text-[#475569] hover:text-[#1A3C6E]"
+              }`}
+            >
+              Plus ✨
+            </button>
+          </div>
+        </div>
+
+        {/* What's included */}
+        <div className="mt-6 max-w-3xl mx-auto bg-white rounded-2xl border border-[#E2E8F0] p-6">
+          <div className="grid sm:grid-cols-2 gap-3">
+            {baseFeatures.map((f) => (
+              <div key={f} className="flex items-center gap-2 text-sm text-[#475569]">
+                <Check className="w-4 h-4 text-[#15803D] flex-shrink-0" />
+                {f}
               </div>
+            ))}
+            {version === "plus" &&
+              plusExtra.map((f) => (
+                <div key={f} className="flex items-center gap-2 text-sm text-[#1A56DB] font-medium">
+                  <Check className="w-4 h-4 text-[#1A56DB] flex-shrink-0" />
+                  {f}
+                </div>
+              ))}
+          </div>
+        </div>
 
-              <ul className="mt-6 space-y-3 flex-1">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm">
-                    <Check
-                      className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
-                        plan.highlighted ? "text-white" : "text-[#15803D]"
-                      }`}
-                    />
-                    <span className={plan.highlighted ? "text-white/90" : "text-[#475569]"}>
-                      {f}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href="#registro"
-                className={`mt-6 block text-center py-2.5 px-4 rounded-xl text-sm font-semibold transition-colors ${
-                  plan.highlighted
-                    ? "bg-white text-[#1A56DB] hover:bg-[#EFF6FF]"
-                    : "bg-[#1A56DB] text-white hover:bg-[#1A3C6E]"
+        {/* Pricing table */}
+        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {plans.map((plan) => {
+            const price = version === "base" ? plan.base : plan.plus;
+            const isCustom = price === "A medida";
+            return (
+              <div
+                key={plan.name}
+                className={`relative rounded-2xl p-6 flex flex-col text-center ${
+                  plan.popular
+                    ? "bg-[#1A56DB] text-white shadow-xl ring-2 ring-[#1A56DB]"
+                    : "bg-white border border-[#E2E8F0] shadow-sm"
                 }`}
               >
-                {plan.cta}
-              </a>
-            </div>
-          ))}
+                {plan.popular && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#25D366] text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
+                    Más popular
+                  </span>
+                )}
+                <h3 className={`text-base font-bold ${plan.popular ? "text-white" : "text-[#1A3C6E]"}`}>
+                  {plan.name}
+                </h3>
+                <p className={`mt-1 text-xs ${plan.popular ? "text-white/70" : "text-[#475569]"}`}>
+                  {plan.owners}
+                </p>
+                <div className="mt-4 flex-1 flex flex-col items-center justify-center">
+                  {isCustom ? (
+                    <span className={`text-xl font-bold ${plan.popular ? "text-white" : "text-[#1A3C6E]"}`}>
+                      A medida
+                    </span>
+                  ) : (
+                    <>
+                      <span className={`text-3xl font-bold ${plan.popular ? "text-white" : "text-[#1A3C6E]"}`}>
+                        {price}
+                      </span>
+                      <span className={`text-xs mt-1 ${plan.popular ? "text-white/70" : "text-[#475569]"}`}>
+                        EUR/mes
+                      </span>
+                    </>
+                  )}
+                </div>
+                <a
+                  href="#registro"
+                  className={`mt-5 block py-2 px-4 rounded-xl text-xs font-semibold transition-colors ${
+                    plan.popular
+                      ? "bg-white text-[#1A56DB] hover:bg-[#EFF6FF]"
+                      : isCustom
+                      ? "bg-[#1A3C6E] text-white hover:bg-[#1A56DB]"
+                      : "bg-[#1A56DB] text-white hover:bg-[#1A3C6E]"
+                  }`}
+                >
+                  {isCustom ? "Contactar" : "Empezar gratis"}
+                </a>
+              </div>
+            );
+          })}
         </div>
 
         {/* Free months banner */}
@@ -187,28 +174,43 @@ export default function Pricing() {
             Calcula tu coste mensual
           </h3>
           <label className="block text-sm font-medium text-[#475569] mb-2">
-            ¿Cuántas comunidades gestionas?
+            ¿Cuántos propietarios gestionas en total?
           </label>
           <input
             type="range"
-            min={1}
-            max={100}
-            value={communities}
-            onChange={(e) => setCommunities(Number(e.target.value))}
+            min={10}
+            max={1800}
+            step={10}
+            value={owners}
+            onChange={(e) => setOwners(Number(e.target.value))}
             className="w-full accent-[#1A56DB]"
           />
           <div className="flex justify-between text-xs text-[#475569] mt-1">
-            <span>1</span>
-            <span className="font-semibold text-[#1A56DB]">{communities} comunidades</span>
-            <span>100</span>
+            <span>10</span>
+            <span className="font-semibold text-[#1A56DB]">{owners} propietarios</span>
+            <span>1.800</span>
           </div>
-          <div className="mt-6 text-center bg-[#F8FAFC] rounded-xl p-4">
-            <p className="text-sm text-[#475569]">Tu plan estimado: {estimatedPlan.name}</p>
-            <p className="text-4xl font-bold text-[#1A56DB] mt-1">{total} EUR<span className="text-lg font-normal text-[#475569]">/mes</span></p>
-            <p className="text-xs text-[#475569] mt-1">
-              ({communities} comunidades × {estimatedPlan.price} EUR)
-            </p>
-          </div>
+          {estimated ? (
+            <div className="mt-6 grid grid-cols-2 gap-3">
+              <div className="text-center bg-[#F8FAFC] rounded-xl p-4">
+                <p className="text-xs text-[#475569] mb-1">Base</p>
+                <p className="text-2xl font-bold text-[#1A56DB]">{estimated.base.toFixed(2)}<span className="text-sm font-normal text-[#475569]"> €/mes</span></p>
+                <p className="text-xs text-[#475569] mt-1">{estimated.name}</p>
+              </div>
+              <div className="text-center bg-[#EFF6FF] rounded-xl p-4 border border-[#1A56DB]/20">
+                <p className="text-xs text-[#475569] mb-1">Plus ✨</p>
+                <p className="text-2xl font-bold text-[#1A56DB]">{estimated.plus.toFixed(2)}<span className="text-sm font-normal text-[#475569]"> €/mes</span></p>
+                <p className="text-xs text-[#475569] mt-1">{estimated.name}</p>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-6 text-center bg-[#F8FAFC] rounded-xl p-4">
+              <p className="text-sm text-[#475569]">Plan Corporativo — precio a medida</p>
+              <a href="#registro" className="mt-2 inline-block text-sm font-semibold text-[#1A56DB] hover:underline">
+                Contacta con nosotros →
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </section>
