@@ -196,11 +196,17 @@ export default function Pricing() {
                 <p className="text-xs text-[#475569] mb-1">Base</p>
                 <p className="text-2xl font-bold text-[#1A56DB]">{estimated.base.toFixed(2)}<span className="text-sm font-normal text-[#475569]"> €/mes</span></p>
                 <p className="text-xs text-[#475569] mt-1">{estimated.name}</p>
+                <p className="mt-2 text-xs font-semibold text-[#15803D] bg-[#F0FDF4] rounded-lg px-2 py-1">
+                  {(estimated.base / owners).toFixed(3)} €/propietario
+                </p>
               </div>
               <div className="text-center bg-[#EFF6FF] rounded-xl p-4 border border-[#1A56DB]/20">
                 <p className="text-xs text-[#475569] mb-1">Plus ✨</p>
                 <p className="text-2xl font-bold text-[#1A56DB]">{estimated.plus.toFixed(2)}<span className="text-sm font-normal text-[#475569]"> €/mes</span></p>
                 <p className="text-xs text-[#475569] mt-1">{estimated.name}</p>
+                <p className="mt-2 text-xs font-semibold text-[#15803D] bg-[#F0FDF4] rounded-lg px-2 py-1">
+                  {(estimated.plus / owners).toFixed(3)} €/propietario
+                </p>
               </div>
             </div>
           ) : (
