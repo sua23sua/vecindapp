@@ -8,10 +8,12 @@ const baseFeatures = [
   "Personalización de mensajes",
   "PDF adjunto",
   "Trazabilidad 5 estados",
-  "Confirmación automática",
-  "Informe de evidencia",
+  "Confirmación automática de vecinos",
+  "Certificado de notificación oficial",
   "LOPD automática",
-  "Importación Excel",
+  "Importación Excel (cualquier formato)",
+  "Mapeador visual de columnas",
+  "Conexión WhatsApp por QR",
   "Soporte email",
 ];
 
@@ -25,24 +27,25 @@ const plusExtra = [
 ];
 
 const plans = [
-  { name: "Starter",      owners: "Hasta 150 propietarios", base: "19,99", plus: "29,99" },
-  { name: "Profesional",  owners: "Hasta 400 propietarios", base: "49,99", plus: "69,99", popular: true },
-  { name: "Avanzado",     owners: "Hasta 800 propietarios", base: "89,99", plus: "119,99" },
-  { name: "Gestoría",     owners: "Hasta 1.800 propietarios", base: "159,99", plus: "209,99" },
-  { name: "Corporativo",  owners: "+1.800 propietarios",    base: "A medida", plus: "A medida" },
+  { name: "Starter",     owners: "Hasta 50 propietarios",   base: "19", plus: "29" },
+  { name: "Profesional", owners: "Hasta 150 propietarios",  base: "39", plus: "59", popular: true },
+  { name: "Avanzado",    owners: "Hasta 300 propietarios",  base: "69", plus: "99" },
+  { name: "Gestoría",    owners: "Hasta 600 propietarios",  base: "119", plus: "169" },
+  { name: "Corporativo", owners: "Hasta 1.500 propietarios", base: "199", plus: "279" },
 ];
 
 const calcPlan = (owners: number) => {
-  if (owners <= 150)  return { name: "Starter",     base: 19.99, plus: 29.99 };
-  if (owners <= 400)  return { name: "Profesional",  base: 49.99, plus: 69.99 };
-  if (owners <= 800)  return { name: "Avanzado",     base: 89.99, plus: 119.99 };
-  if (owners <= 1800) return { name: "Gestoría",     base: 159.99, plus: 209.99 };
+  if (owners <= 50)   return { name: "Starter",     base: 19,  plus: 29 };
+  if (owners <= 150)  return { name: "Profesional", base: 39,  plus: 59 };
+  if (owners <= 300)  return { name: "Avanzado",    base: 69,  plus: 99 };
+  if (owners <= 600)  return { name: "Gestoría",    base: 119, plus: 169 };
+  if (owners <= 1500) return { name: "Corporativo", base: 199, plus: 279 };
   return null;
 };
 
 export default function Pricing() {
   const [version, setVersion] = useState<"base" | "plus">("base");
-  const [owners, setOwners] = useState(150);
+  const [owners, setOwners] = useState(100);
 
   const estimated = calcPlan(owners);
 
@@ -107,7 +110,6 @@ export default function Pricing() {
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {plans.map((plan) => {
             const price = version === "base" ? plan.base : plan.plus;
-            const isCustom = price === "A medida";
             return (
               <div
                 key={plan.name}
@@ -129,32 +131,22 @@ export default function Pricing() {
                   {plan.owners}
                 </p>
                 <div className="mt-4 flex-1 flex flex-col items-center justify-center">
-                  {isCustom ? (
-                    <span className={`text-xl font-bold ${plan.popular ? "text-white" : "text-[#1A3C6E]"}`}>
-                      A medida
-                    </span>
-                  ) : (
-                    <>
-                      <span className={`text-3xl font-bold ${plan.popular ? "text-white" : "text-[#1A3C6E]"}`}>
-                        {price}
-                      </span>
-                      <span className={`text-xs mt-1 ${plan.popular ? "text-white/70" : "text-[#475569]"}`}>
-                        EUR/mes
-                      </span>
-                    </>
-                  )}
+                  <span className={`text-3xl font-bold ${plan.popular ? "text-white" : "text-[#1A3C6E]"}`}>
+                    {price}€
+                  </span>
+                  <span className={`text-xs mt-1 ${plan.popular ? "text-white/70" : "text-[#475569]"}`}>
+                    /mes
+                  </span>
                 </div>
                 <a
-                  href="#registro"
+                  href="https://vecindapp-app.vercel.app/register"
                   className={`mt-5 block py-2 px-4 rounded-xl text-xs font-semibold transition-colors ${
                     plan.popular
                       ? "bg-white text-[#1A56DB] hover:bg-[#EFF6FF]"
-                      : isCustom
-                      ? "bg-[#1A3C6E] text-white hover:bg-[#1A56DB]"
                       : "bg-[#1A56DB] text-white hover:bg-[#1A3C6E]"
                   }`}
                 >
-                  {isCustom ? "Contactar" : "Empezar gratis"}
+                  Empezar gratis
                 </a>
               </div>
             );
@@ -179,7 +171,7 @@ export default function Pricing() {
           <input
             type="range"
             min={10}
-            max={1800}
+            max={1500}
             step={10}
             value={owners}
             onChange={(e) => setOwners(Number(e.target.value))}
@@ -188,13 +180,13 @@ export default function Pricing() {
           <div className="flex justify-between text-xs text-[#475569] mt-1">
             <span>10</span>
             <span className="font-semibold text-[#1A56DB]">{owners} propietarios</span>
-            <span>1.800</span>
+            <span>1.500</span>
           </div>
           {estimated ? (
             <div className="mt-6 grid grid-cols-2 gap-3">
               <div className="text-center bg-[#F8FAFC] rounded-xl p-4">
                 <p className="text-xs text-[#475569] mb-1">Base</p>
-                <p className="text-2xl font-bold text-[#1A56DB]">{estimated.base.toFixed(2)}<span className="text-sm font-normal text-[#475569]"> €/mes</span></p>
+                <p className="text-2xl font-bold text-[#1A56DB]">{estimated.base}<span className="text-sm font-normal text-[#475569]"> €/mes</span></p>
                 <p className="text-xs text-[#475569] mt-1">{estimated.name}</p>
                 <p className="mt-2 text-xs font-semibold text-[#15803D] bg-[#F0FDF4] rounded-lg px-2 py-1">
                   {(estimated.base / owners).toFixed(3)} €/propietario
@@ -202,7 +194,7 @@ export default function Pricing() {
               </div>
               <div className="text-center bg-[#EFF6FF] rounded-xl p-4 border border-[#1A56DB]/20">
                 <p className="text-xs text-[#475569] mb-1">Plus ✨</p>
-                <p className="text-2xl font-bold text-[#1A56DB]">{estimated.plus.toFixed(2)}<span className="text-sm font-normal text-[#475569]"> €/mes</span></p>
+                <p className="text-2xl font-bold text-[#1A56DB]">{estimated.plus}<span className="text-sm font-normal text-[#475569]"> €/mes</span></p>
                 <p className="text-xs text-[#475569] mt-1">{estimated.name}</p>
                 <p className="mt-2 text-xs font-semibold text-[#15803D] bg-[#F0FDF4] rounded-lg px-2 py-1">
                   {(estimated.plus / owners).toFixed(3)} €/propietario
@@ -212,7 +204,7 @@ export default function Pricing() {
           ) : (
             <div className="mt-6 text-center bg-[#F8FAFC] rounded-xl p-4">
               <p className="text-sm text-[#475569]">Plan Corporativo — precio a medida</p>
-              <a href="#registro" className="mt-2 inline-block text-sm font-semibold text-[#1A56DB] hover:underline">
+              <a href="https://vecindapp-app.vercel.app/register" className="mt-2 inline-block text-sm font-semibold text-[#1A56DB] hover:underline">
                 Contacta con nosotros →
               </a>
             </div>

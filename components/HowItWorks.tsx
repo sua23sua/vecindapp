@@ -4,7 +4,7 @@ const steps = [
     emoji: "📶",
     title: "Conectas tu WhatsApp una sola vez",
     detail:
-      "Escaneas un código QR igual que con WhatsApp Web. 30 segundos. El número queda conectado permanentemente para tus comunidades.",
+      "En Ajustes → WhatsApp escaneas un código QR igual que con WhatsApp Web. 30 segundos. El número queda conectado permanentemente para todas tus comunidades.",
     tip: "Usa un número específico para la administración, no tu móvil personal.",
   },
   {
@@ -12,7 +12,7 @@ const steps = [
     emoji: "📥",
     title: "Importas tus vecinos desde el Excel que ya tienes",
     detail:
-      "Arrastras el archivo y el sistema importa, limpia y normaliza todos los teléfonos automáticamente. Formatos aceptados: 612345678, +34 612 345 678, 0034612345678. Vista previa antes de confirmar.",
+      "Arrastra tu archivo. Si las columnas se detectan automáticamente, vas directo a la previsualización. Si tu Excel tiene un formato diferente, el mapeador visual te deja indicar qué columna es el nombre, el piso y el teléfono. Formatos de teléfono aceptados: 612345678, +34 612 345 678, 0034612345678.",
     tip: null,
   },
   {
@@ -28,7 +28,7 @@ const steps = [
     emoji: "📎",
     title: "Adjuntas el PDF (si hace falta)",
     detail:
-      "El acta, la convocatoria, el presupuesto... lo arrastras y se envía junto al mensaje.",
+      "El acta, la convocatoria, el presupuesto... lo seleccionas y se envía junto al mensaje directamente en el chat de WhatsApp.",
     tip: null,
   },
   {
@@ -37,6 +37,14 @@ const steps = [
     title: "Pulsas Enviar. El sistema hace el resto.",
     detail:
       "Cierra el ordenador. El sistema envía uno a uno con pausas para evitar bloqueos. Para 30 vecinos: ~6 minutos en background.",
+    tip: null,
+  },
+  {
+    num: "06",
+    emoji: "📋",
+    title: "Exportas el certificado de notificación",
+    detail:
+      "Desde Seguimiento puedes exportar un documento oficial con membrete, estadísticas y la tabla completa de quién recibió, leyó y confirmó con timestamps. Válido como prueba documental.",
     tip: null,
   },
 ];
@@ -59,7 +67,7 @@ export default function HowItWorks() {
                 <div
                   className="w-14 h-14 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-md"
                   style={{
-                    background: `hsl(${220 + i * 20}, ${70 - i * 5}%, ${45 + i * 5}%)`,
+                    background: `hsl(${220 + i * 15}, ${70 - i * 4}%, ${45 + i * 4}%)`,
                   }}
                 >
                   {step.emoji}
@@ -67,7 +75,7 @@ export default function HowItWorks() {
                 <span className="mt-2 text-xs font-bold text-[#1A56DB]">{step.num}</span>
               </div>
               {i < steps.length - 1 && (
-                <div className="w-16 h-0.5 bg-gradient-to-r from-[#1A56DB] to-[#25D366] mx-1" />
+                <div className="w-12 h-0.5 bg-gradient-to-r from-[#1A56DB] to-[#25D366] mx-1" />
               )}
             </div>
           ))}

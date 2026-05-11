@@ -1,16 +1,16 @@
 const statusSteps = [
-  { num: 1, status: "Enviado", display: "1 tick gris", meaning: "Llegó al servidor de WhatsApp", color: "bg-gray-400", textColor: "text-gray-600" },
-  { num: 2, status: "Entregado", display: "2 ticks grises", meaning: "El móvil del vecino lo recibió", color: "bg-gray-500", textColor: "text-gray-600" },
-  { num: 3, status: "Leído", display: "2 ticks azules ✓✓", meaning: "El vecino abrió el mensaje", color: "bg-[#1A56DB]", textColor: "text-[#1A56DB]" },
-  { num: 4, status: "Confirmado", display: "El vecino responde", meaning: "Prueba explícita de recepción", color: "bg-[#15803D]", textColor: "text-[#15803D]" },
-  { num: "!", status: "Fallido", display: "Sin entrega", meaning: "Alerta para seguimiento manual", color: "bg-red-500", textColor: "text-red-600" },
+  { num: 1, status: "Enviado",    display: "1 tick gris",       meaning: "Llegó al servidor de WhatsApp",    color: "bg-gray-400",    textColor: "text-gray-600"    },
+  { num: 2, status: "Entregado",  display: "2 ticks grises",    meaning: "El móvil del vecino lo recibió",   color: "bg-gray-500",    textColor: "text-gray-600"    },
+  { num: 3, status: "Leído",      display: "2 ticks azules ✓✓", meaning: "El vecino abrió el mensaje",       color: "bg-[#1A56DB]",   textColor: "text-[#1A56DB]"   },
+  { num: 4, status: "Confirmado", display: "El vecino responde",meaning: "Prueba explícita de recepción",    color: "bg-[#15803D]",   textColor: "text-[#15803D]"   },
+  { num: "!", status: "Fallido",  display: "Sin entrega",       meaning: "Alerta para seguimiento manual",   color: "bg-red-500",     textColor: "text-red-600"     },
 ];
 
 const tracking = [
-  { name: "María García", piso: "1A", leido: "10:34 ✓", confirmado: "10:41 ✓ \"Ok\"", status: "confirmed" },
-  { name: "Josep Martí", piso: "2B", leido: "10:38 ✓", confirmado: "10:52 ✓ \"RECIBIDO\"", status: "confirmed" },
-  { name: "Carles Soler", piso: "3A", leido: "12:20 ✓", confirmado: "Pendiente", status: "read" },
-  { name: "Miquel Roca", piso: "4B", leido: "Sin leer", confirmado: "—", status: "unread" },
+  { name: "María García",  piso: "1A", leido: "10:34 ✓", confirmado: "10:41 ✓ \"Ok\"",      status: "confirmed" },
+  { name: "Josep Martí",   piso: "2B", leido: "10:38 ✓", confirmado: "10:52 ✓ \"RECIBIDO\"", status: "confirmed" },
+  { name: "Carles Soler",  piso: "3A", leido: "12:20 ✓", confirmado: "Pendiente",             status: "read"      },
+  { name: "Miquel Roca",   piso: "4B", leido: "Sin leer", confirmado: "—",                    status: "unread"    },
 ];
 
 export default function Tracking() {
@@ -26,16 +26,11 @@ export default function Tracking() {
           </p>
         </div>
 
-        {/* Status table */}
+        {/* Status steps */}
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {statusSteps.map((s) => (
-            <div
-              key={s.status}
-              className="rounded-2xl border border-[#E2E8F0] p-5 text-center"
-            >
-              <div
-                className={`w-10 h-10 rounded-full ${s.color} text-white flex items-center justify-center text-sm font-bold mx-auto mb-3`}
-              >
+            <div key={s.status} className="rounded-2xl border border-[#E2E8F0] p-5 text-center">
+              <div className={`w-10 h-10 rounded-full ${s.color} text-white flex items-center justify-center text-sm font-bold mx-auto mb-3`}>
                 {s.num}
               </div>
               <p className={`font-semibold ${s.textColor}`}>{s.status}</p>
@@ -77,9 +72,10 @@ export default function Tracking() {
               </tbody>
             </table>
           </div>
-          <div className="px-6 py-4 bg-[#F8FAFC]">
-            <button className="w-full py-2.5 px-4 bg-[#1A56DB] text-white text-sm font-semibold rounded-xl hover:bg-[#1A3C6E] transition-colors">
-              Exportar informe PDF de evidencia
+          <div className="px-6 py-4 bg-[#F8FAFC] flex items-center justify-between gap-4">
+            <p className="text-xs text-[#475569]">2 confirmados · 1 leído · 1 pendiente · 0 fallidos</p>
+            <button className="py-2 px-4 bg-[#1A56DB] text-white text-sm font-semibold rounded-xl hover:bg-[#1A3C6E] transition-colors whitespace-nowrap">
+              Certificado de notificación
             </button>
           </div>
         </div>

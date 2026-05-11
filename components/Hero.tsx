@@ -27,7 +27,7 @@ export default function Hero() {
             {/* CTAs */}
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <a
-                href="#registro"
+                href="https://vecindapp-app.vercel.app/register"
                 className="inline-flex items-center justify-center px-6 py-3 bg-[#1A56DB] text-white text-base font-semibold rounded-xl hover:bg-[#1A3C6E] transition-all duration-200 shadow-md hover:shadow-lg"
               >
                 Empieza gratis 3 meses
