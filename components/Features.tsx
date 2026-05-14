@@ -3,10 +3,10 @@ import {
   BarChart3,
   FileText,
   Zap,
-  Shield,
   ClipboardCheck,
-  Upload,
   QrCode,
+  CheckCircle2,
+  FolderOpen,
 } from "lucide-react";
 
 const features = [
@@ -25,6 +25,20 @@ const features = [
     color: "#1A56DB",
   },
   {
+    icon: CheckCircle2,
+    title: "Confirmación automática",
+    description:
+      "Cuando el vecino responde \"Sí\", \"Confirmo\", \"Ok\" o cualquier variante, la app lo registra sola. También puedes confirmar manualmente desde el panel para llamadas o mensajes por otro canal.",
+    color: "#15803D",
+  },
+  {
+    icon: FolderOpen,
+    title: "Campañas activas y completadas",
+    description:
+      "Las campañas en curso aparecen en Activas. En cuanto todos confirman, pasan automáticamente a Completadas. Búsqueda por comunidad y rango de fechas.",
+    color: "#7C3AED",
+  },
+  {
     icon: FileText,
     title: "Adjunto de PDFs",
     description:
@@ -32,25 +46,11 @@ const features = [
     color: "#D97706",
   },
   {
-    icon: Upload,
-    title: "Importación flexible de Excel",
-    description:
-      "¿Tu Excel tiene columnas distintas? No hay problema. El sistema detecta las columnas automáticamente o te deja mapearlas tú con un selector visual.",
-    color: "#7C3AED",
-  },
-  {
     icon: Zap,
     title: "Variables dinámicas",
     description:
       "{{nombre}}, {{vivienda}}, {{comunidad}}, {{fecha_junta}}. Escribes el mensaje una vez y cada vecino recibe uno personalizado.",
     color: "#1A56DB",
-  },
-  {
-    icon: Shield,
-    title: "LOPD automática",
-    description:
-      "Texto legal en el primer mensaje. Sistema de baja por palabra clave. Sin configuración adicional.",
-    color: "#15803D",
   },
   {
     icon: ClipboardCheck,

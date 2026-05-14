@@ -9,10 +9,10 @@ const steps = [
   },
   {
     num: "02",
-    emoji: "📥",
-    title: "Importas tus vecinos desde el Excel que ya tienes",
+    emoji: "🏘️",
+    title: "Creas tus comunidades y añades los propietarios",
     detail:
-      "Arrastra tu archivo. Si las columnas se detectan automáticamente, vas directo a la previsualización. Si tu Excel tiene un formato diferente, el mapeador visual te deja indicar qué columna es el nombre, el piso y el teléfono. Formatos de teléfono aceptados: 612345678, +34 612 345 678, 0034612345678.",
+      "Crea cada comunidad con su nombre y dirección. Añade los propietarios con nombre, piso y teléfono. Puedes gestionar todas tus comunidades desde el mismo panel.",
     tip: null,
   },
   {
@@ -34,17 +34,17 @@ const steps = [
   {
     num: "05",
     emoji: "🚀",
-    title: "Pulsas Enviar. El sistema hace el resto.",
+    title: "Seleccionas comunidades y pulsas Enviar",
     detail:
-      "Cierra el ordenador. El sistema envía uno a uno con pausas para evitar bloqueos. Para 30 vecinos: ~6 minutos en background.",
+      "Busca entre tus comunidades, selecciona una o varias, previsualiza cómo quedará el mensaje y envía. El sistema personaliza y manda uno a uno.",
     tip: null,
   },
   {
     num: "06",
     emoji: "📋",
-    title: "Exportas el certificado de notificación",
+    title: "Seguimiento automático y certificado",
     detail:
-      "Desde Seguimiento puedes exportar un documento oficial con membrete, estadísticas y la tabla completa de quién recibió, leyó y confirmó con timestamps. Válido como prueba documental.",
+      "Cada confirmación del vecino se registra sola. Cuando todos confirman la campaña pasa a Completadas automáticamente. Desde Seguimiento exportas el certificado oficial de notificación como prueba documental.",
     tip: null,
   },
 ];

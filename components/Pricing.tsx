@@ -5,14 +5,14 @@ import { Check } from "lucide-react";
 
 const baseFeatures = [
   "Envíos ilimitados",
-  "Personalización de mensajes",
-  "PDF adjunto",
+  "Personalización de mensajes con variables",
+  "PDF adjunto en los envíos",
   "Trazabilidad 5 estados",
-  "Confirmación automática de vecinos",
+  "Confirmación automática de vecinos por WhatsApp",
+  "Confirmación manual desde el panel",
+  "Campañas Activas y Completadas",
+  "Auto-completar cuando todos confirman",
   "Certificado de notificación oficial",
-  "LOPD automática",
-  "Importación Excel (cualquier formato)",
-  "Mapeador visual de columnas",
   "Conexión WhatsApp por QR",
   "Soporte email",
 ];

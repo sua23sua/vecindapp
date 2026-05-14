@@ -7,10 +7,10 @@ const statusSteps = [
 ];
 
 const tracking = [
-  { name: "María García",  piso: "1A", leido: "10:34 ✓", confirmado: "10:41 ✓ \"Ok\"",      status: "confirmed" },
-  { name: "Josep Martí",   piso: "2B", leido: "10:38 ✓", confirmado: "10:52 ✓ \"RECIBIDO\"", status: "confirmed" },
-  { name: "Carles Soler",  piso: "3A", leido: "12:20 ✓", confirmado: "Pendiente",             status: "read"      },
-  { name: "Miquel Roca",   piso: "4B", leido: "Sin leer", confirmado: "—",                    status: "unread"    },
+  { name: "María García",  piso: "1A", leido: "10:34 ✓", confirmado: "10:41 ✓ \"Ok\"",       status: "confirmed" },
+  { name: "Josep Martí",   piso: "2B", leido: "10:38 ✓", confirmado: "10:52 ✓ \"Confirmo\"", status: "confirmed" },
+  { name: "Carles Soler",  piso: "3A", leido: "12:20 ✓", confirmado: "Pendiente",              status: "read"      },
+  { name: "Miquel Roca",   piso: "4B", leido: "Sin leer", confirmado: "—",                     status: "unread"    },
 ];
 
 export default function Tracking() {
@@ -42,9 +42,12 @@ export default function Tracking() {
 
         {/* Mock panel */}
         <div className="mt-12 max-w-2xl mx-auto bg-white rounded-2xl border border-[#E2E8F0] shadow-md overflow-hidden">
-          <div className="bg-[#1A3C6E] px-6 py-4">
-            <p className="text-white font-semibold">Seguimiento: Convocatoria Junta Mayo</p>
-            <p className="text-white/70 text-sm">C/ Gran Vía 42 · 32 propietarios · 14 may 10:32</p>
+          <div className="bg-[#1A3C6E] px-6 py-4 flex items-center justify-between">
+            <div>
+              <p className="text-white font-semibold">Convocatoria Junta Mayo</p>
+              <p className="text-white/70 text-sm">C/ Gran Vía 42 · 32 propietarios · 14 may 10:32</p>
+            </div>
+            <span className="text-xs bg-amber-400 text-amber-900 font-semibold px-3 py-1 rounded-full">Activa</span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -72,13 +75,25 @@ export default function Tracking() {
               </tbody>
             </table>
           </div>
-          <div className="px-6 py-4 bg-[#F8FAFC] flex items-center justify-between gap-4">
+          <div className="px-6 py-4 bg-[#F8FAFC] flex items-center justify-between gap-4 flex-wrap">
             <p className="text-xs text-[#475569]">2 confirmados · 1 leído · 1 pendiente · 0 fallidos</p>
-            <button className="py-2 px-4 bg-[#1A56DB] text-white text-sm font-semibold rounded-xl hover:bg-[#1A3C6E] transition-colors whitespace-nowrap">
-              Certificado de notificación
-            </button>
+            <div className="flex items-center gap-3">
+              <button className="py-1.5 px-3 text-xs font-semibold text-[#15803D] border border-[#15803D]/30 bg-[#F0FDF4] rounded-lg whitespace-nowrap">
+                ✓ Marcar completada
+              </button>
+              <button className="py-1.5 px-3 bg-[#1A56DB] text-white text-xs font-semibold rounded-lg hover:bg-[#1A3C6E] transition-colors whitespace-nowrap">
+                Certificado PDF
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* Auto-complete note */}
+        <p className="mt-6 text-center text-sm text-[#475569]">
+          Cuando el último vecino confirma, la campaña pasa a{" "}
+          <span className="text-[#15803D] font-semibold">Completadas</span>{" "}
+          de forma automática.
+        </p>
       </div>
     </section>
   );
